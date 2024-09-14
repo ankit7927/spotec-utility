@@ -23,7 +23,6 @@ files = os.listdir(song_dir_path)
 
 
 def do_main_stuff():
-    print("in do")
     while len(files) != 0:
         file = files.pop()
 
@@ -42,14 +41,11 @@ def do_main_stuff():
             if response.status_code == 201:
                 print("success")
             else:
+                print(response.status_code)
                 logging.warning(f"failed to upload {file} - {response.status_code}")
 
         except Exception as e:
             logging.warning(e)
-            raise e
 
-
-do_main_stuff()
-
-# for _ in range(10):
-#     Thread(target=do_main_stuff).start()
+for _ in range(40):
+    Thread(target=do_main_stuff).start()

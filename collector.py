@@ -3,7 +3,6 @@ import re
 
 
 def collector(file_path) -> tuple[dict, str]:
-    #print("in collector")
     pattern = r"-?\s*\S+\.\S+"
     file = load_file(file_path)
     collectd = {}
@@ -17,15 +16,6 @@ def collector(file_path) -> tuple[dict, str]:
     collectd["album"] = re.sub(
         pattern=pattern, repl="", string=file["album"].value
     ).strip()
-    collectd["composer"] = re.sub(
-        pattern=pattern, repl="", string=file["composer"].value
-    ).strip()
-    collectd["genre"] = re.sub(
-        pattern=pattern, repl="", string=file["genre"].value
-    ).strip()
-    collectd["lyrics"] = re.sub(
-        pattern=pattern, repl="", string=file["lyrics"].value
-    ).strip()
     collectd["year"] = file["year"].value
 
     art = file["artwork"]
@@ -34,17 +24,7 @@ def collector(file_path) -> tuple[dict, str]:
 
         art_data = art.first.thumbnail([1024, 1024])
 
-        extension = art_data.format
-
-        file_extension = {
-            "JPEG": "jpg",
-            "PNG": "png",
-            "GIF": "gif",
-            "BMP": "bmp",
-            "TIFF": "tif",
-        }.get(extension, "unknown")
-
-        thumb_path = f"temp/{collectd['title']}.{file_extension}"
+        thumb_path = f"temp/{collectd['title']}.jpg"
 
         art_data.save(thumb_path)
     else:

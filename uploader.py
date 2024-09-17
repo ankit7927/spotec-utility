@@ -1,12 +1,12 @@
 import requests, json
 from requests import Response
 
-url = "http://localhost:5000/song/song"
+url = "http://localhost:5000/api/track"
 
 
 def uploader(data: dict, thumb_path: str, audio_path: str) -> Response:
     files = {
-        "audio": open(audio_path, "rb"),
+        "trackFile": open(audio_path, "rb"),
         "thumbnail": open(thumb_path, "rb") if thumb_path is not None else None,
     }
 
